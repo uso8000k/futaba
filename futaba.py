@@ -13,7 +13,7 @@ class FutaROM:
   def __init__(self,str_url):
 
     self.str_url     = str_url
-    self.lst_caturls = []
+    self.lst_caturl = []
 
   def get_catalog(self):
 
@@ -24,8 +24,8 @@ class FutaROM:
     bs_links    = bs_catalog.findAll("a", attrs={"target":"_blank"})
 
     for bs_link in bs_links:
-      self.lst_caturls.append(PREFIX+bs_link.attrs['href'])
-    return self.lst_caturls
+      self.lst_caturl.append(PREFIX+bs_link.attrs['href'])
+    return self.lst_caturl
 
   def get_thread(self,str_url):
 
@@ -41,7 +41,7 @@ class FutaROM:
     for i in range(len(lst_id)):
       str_id   = lst_id[i].get("name")
       str_text = lst_text[i].get_text()
-      lst_thread.append((str_id,str_text))
+      lst_thread.append((str_url,str_id,str_text))
       #print  str_url,str_id,str_text
 
     return lst_thread
@@ -64,7 +64,7 @@ class FutaROM:
     str_text=bs_parser.find("blockquote").get_text()
 
     #print  str_url,str_id,str_text
-    return str_id,str_text
+    return str_url,str_id,str_text
 
   def get_all_head(self):
      
