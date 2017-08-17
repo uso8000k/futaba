@@ -27,6 +27,9 @@ class Jiyuu(FutaROM):
     for tup_head in lst_head:
       if re.match(re_pattern, tup_head[-1]):
         lst_url.append(tup_head[0])
+      else:
+        self.str_tgturl = ""
+        self.lst_res    = []
     return lst_url
 
   def get_allres(self):

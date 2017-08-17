@@ -3,11 +3,7 @@
 
 import re
 import requests
-from time import sleep
 from bs4  import BeautifulSoup
-
-PREFIX = 'http://dat.2chan.net/b/'
-WAIT   = 1
 
 class FutaROM:
   def __init__(self,str_url):
@@ -24,7 +20,7 @@ class FutaROM:
     bs_links    = bs_catalog.findAll("a", attrs={"target":"_blank"})
 
     for bs_link in bs_links:
-      self.lst_caturl.append(PREFIX+bs_link.attrs['href'])
+      self.lst_caturl.append(self.str_url+bs_link.attrs['href'])
     return self.lst_caturl
 
   def get_thread(self,str_url):
@@ -51,7 +47,6 @@ class FutaROM:
     lst_all=[] 
 
     for str_url in self.get_catalog():
-        sleep(WAIT)
         lst_all.append(self.get_thread(str_url))
 
     return lst_all
@@ -71,17 +66,17 @@ class FutaROM:
     lst_all=[]
 
     for str_url in self.get_catalog():
-        sleep(WAIT)
         lst_all.append(self.get_head(str_url))
 
     return lst_all
 
 def main():
 
+  PREFIX   = 'http://dat.2chan.net/b/'
   o_futaba = FutaROM(PREFIX)
 
   #print o_futaba.get_catalog()
-  print o_futaba.get_all_head()
+  #print o_futaba.get_all_head()
   #print o_futaba.get_all_thread()
       
 if __name__=='__main__':
