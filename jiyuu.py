@@ -9,12 +9,13 @@ class Jiyuu(FutaROM):
 
   def __init__(self,str_url,u_keyword):
 
-    self.str_url    = str_url
     self.u_keyword  = u_keyword
-    self.lst_caturl = []
 
-    self.str_tgturl = ""
+    self.lst_caturl = []
     self.lst_res    = []
+
+    self.str_url    = str_url
+    self.str_tgturl = ""
 
   def search(self):
 
@@ -54,6 +55,9 @@ class Jiyuu(FutaROM):
          lst_update   = lst_current[len(self.lst_res):]
          self.lst_res = lst_current
          return lst_update
+      elif lst_current == []:
+         self.lst_res    = []
+         self.str_tgturl = self.search()[0]
       else:
          return []
     else:
@@ -66,9 +70,11 @@ def main():
 
   while True:
     for i in o_jiyuu.get_newres():
-        if i != []:
-          print i[-1]
-    sleep(300)
+      if i != []:
+        print i[-1]
+      else:
+        print "no update"
+    sleep(60)
 
 if __name__=='__main__':
   main()
