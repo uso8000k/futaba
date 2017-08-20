@@ -12,16 +12,22 @@ class FutaROM:
     self.lst_caturl = []
 
   def get_catalog(self):
-
+    
     str_caturl  = self.str_url+'futaba.php?mode=cat&sort=1'
-    o_response  = requests.get(str_caturl) 
+    dic_cookie  = {'cxyl': '12x10x0'}
+    o_response  = requests.post(str_caturl,cookies=dic_cookie) 
+
     bs_parser   = BeautifulSoup(o_response.text, "html.parser")
     bs_catalog  = bs_parser.findAll("table", attrs={"border":"1","align":"center"})[0]
     bs_links    = bs_catalog.findAll("a", attrs={"target":"_blank"})
 
+    lst_caturl  = []
+
     for bs_link in bs_links:
-      self.lst_caturl.append(self.str_url+bs_link.attrs['href'])
-    return self.lst_caturl
+      lst_caturl.append(self.str_url+bs_link.attrs['href'])
+      
+    self.lst_caturl = lst_caturl
+    return lst_caturl
 
   def get_thread(self,str_url):
 

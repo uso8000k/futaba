@@ -28,9 +28,8 @@ class Jiyuu(FutaROM):
     for tup_head in lst_head:
       if re.match(re_pattern, tup_head[-1]):
         lst_url.append(tup_head[0])
-      else:
-        self.str_tgturl = ""
-        self.lst_res    = []
+    if lst_url == []:
+      lst_url.append("")
     return lst_url
 
   def get_allres(self):
@@ -38,7 +37,7 @@ class Jiyuu(FutaROM):
     lst_url         = self.search()
     self.str_tgturl = lst_url[0]
 
-    if len(lst_url) == 1:
+    if self.str_tgturl != "":
       lst_res = self.get_thread(self.str_tgturl)
     else:
       lst_res = []
